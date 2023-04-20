@@ -77,7 +77,7 @@ class EnvironmentController extends Controller
 
     private function prefix(string $key): string
     {
-        return str_contains('_', $key) ? Str::before($key, '_') : '';
+        return str_contains($key, '_') ? Str::before($key, '_') : '';
     }
 
     /**
