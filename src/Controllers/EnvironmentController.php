@@ -54,19 +54,19 @@ class EnvironmentController extends Controller
 
     private function filters(array $keys = []): array
     {
-        $categories = [];
+        $variables = [];
         foreach ($_ENV as $key => $value) {
             $group = $this->group($key);
-            if ($keys && ! in_array($key, $keys)) {
-                break;
+            if ($keys && ! in_array($group, $keys)) {
+                continue;
             }
-            $categories[$group]['name'] = $group;
-            $categories[$group]['variables'][] = [
+            $variables[$group]['name'] = $group;
+            $variables[$group]['variables'][] = [
                 'key' => $key,
                 'value' => $value,
             ];
         }
-        return array_values($categories);
+        return array_values($variables);
     }
 
     private function group(string $key): string
