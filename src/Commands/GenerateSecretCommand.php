@@ -19,9 +19,10 @@ class GenerateSecretCommand extends BaseSeedCommand
 
     public function handle()
     {
-        $secert = $this->secret('Enter the password to access API:');
-        $hash = Hash::make($secert);
-        Cache::store('file')->put('launcher_secret', $hash);
+        do {
+            $secert = $this->secret('Enter the password to access API');
+        } while (trim($secert) == '');
+        Cache::store('file')->put('launcher_secret', Hash::make($secert));
 
         $this->info('Password registered successfully.');
     }
