@@ -55,7 +55,7 @@ class LauncherServiceProvider extends ServiceProvider
     {
         $router = $this->app->make(Router::class);
         $router->pushMiddlewareToGroup('api', Authenticate::class);
-        $router->aliasMiddleware('auth:launcher', Authenticate::class);
+        $router->aliasMiddleware('auth.launcher', Authenticate::class);
     }
 
     public function registerCommands()
