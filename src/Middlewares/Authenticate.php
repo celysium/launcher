@@ -1,6 +1,6 @@
 <?php
 
-namespace Celysium\Launcher\Middleware;
+namespace Celysium\Launcher\Middlewares;
 
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;

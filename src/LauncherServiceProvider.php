@@ -2,7 +2,7 @@
 
 namespace Celysium\Launcher;
 
-use Celysium\Launcher\Middleware\Authenticate;
+use Celysium\Launcher\Middlewares\Authenticate;
 use Celysium\Seeder\Commands\GenerateSecretCommand;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Routing\Router;
