@@ -88,9 +88,10 @@ class EnvironmentController extends Controller
      */
     private function put(string &$source, string $key, string $value)
     {
-        if (in_array($key, $_ENV)) {
+        $key = strtoupper($key);
+        if (array_key_exists($key, $_ENV)) {
             $current = $_ENV[$key];
-            $source = preg_replace("/^$key=$current/m", `$key="$value"`, $source);
+            $source = preg_replace("/^$key=$current/m", $key . '="' . $value . '"', $source);
 
             if ($source === null) {
                 throw new Exception("Unable to set key $key");
@@ -100,13 +101,17 @@ class EnvironmentController extends Controller
             $prefix = $this->prefix($key);
             $exists = false;
             foreach ($lines as $lineNumber => $line) {
-                if (str_contains($prefix, $line) && !str_contains($prefix, $lines[$lineNumber + 1])) {
-                    array_splice($lines, $lineNumber + 1, 0, `$key="$value"`);
+                if (str_contains($line, $prefix) && !str_contains($lines[$lineNumber + 1], $prefix)) {
+                    array_splice($lines, $lineNumber + 1, 0, $key . '="' . $value . '"');
                     $exists = true;
+                    break;
                 }
             }
             if(! $exists) {
-                $lines[] = "\n" . `$key="$value"`;
+                if(trim(last($lines)) != '') {
+                    $lines[] = "";
+                }
+                $lines[] = $key . '="' . $value . '"';
             }
             $source = implode("\n", $lines);
         }
