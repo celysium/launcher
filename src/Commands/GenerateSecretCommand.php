@@ -1,6 +1,6 @@
 <?php
 
-namespace Celysium\Seeder\Commands;
+namespace Celysium\Launcher\Commands;
 
 use Illuminate\Database\Console\Seeds\SeedCommand as BaseSeedCommand;
 use Illuminate\Support\Facades\Cache;
