@@ -1,0 +1,29 @@
+{
+    "name": "celysium/launcher",
+    "description": " The package Launcher a new project laravel.",
+    "keywords": [
+        "Laravel",
+        "Launcher"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Celysium\\Launcher\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nasser Hekmati",
+            "email": "hekmati.nasser@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0.2",
+        "celysium/base": "^1.0",
+        "celysium/responser": "^1.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^7.0"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
