@@ -26,7 +26,8 @@ class Authenticate
     public function handle(Request $request, Closure $next)
     {
         $token = $request->bearerToken();
-        if (Hash::check(decrypt($token), Cache::store('file')->get('launcher_secret'))) {
+        $hash = Cache::store('file')->get('launcher_secret');
+        if ($hash && Hash::check($hash, $token)) {
             return $next($request);
         }
         throw new AuthorizationException();

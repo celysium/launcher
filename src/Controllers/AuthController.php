@@ -41,7 +41,7 @@ class AuthController extends Controller
                                                       ]]);
         }
 
-        $token = encrypt($request->post('password'));
+        $token = Hash::make(Cache::store('file')->get('launcher_secret'));
         Cache::store('file')->put('launcher_token', $token, config('token_lifetime', 300));
 
         return Responser::success([
