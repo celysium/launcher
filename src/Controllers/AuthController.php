@@ -28,12 +28,17 @@ class AuthController extends Controller
         ]);
         $hash = Cache::store('file')->get('launcher_secret');
         if (!Hash::check($request->post('password'), $hash)) {
-            throw ValidationException::withMessages([
-                'password' => __('')
-            ]);
+            return Responser::unprocessable(
+                ValidationException::withMessages([
+                    'password' => __('auth.password')
+                ])->errors()
+            );
         }
-        if (!Cache::store('file')->has('launcher_token')) {
-            throw new Exception('The user is logged. try again later.', 401);
+        if (Cache::store('file')->has('launcher_token')) {
+            return Responser::unauthorized(messages: [[
+                                                          'type' => 'error',
+                                                          'text' => 'The user is logged. try again later.'
+                                                      ]]);
         }
 
         $token = encrypt($request->post('password'));
