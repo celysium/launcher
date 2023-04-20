@@ -17,6 +17,9 @@ class LauncherServiceProvider extends ServiceProvider
         $this->publishConfig();
     }
 
+    /**
+     * @throws BindingResolutionException
+     */
     public function register()
     {
         $this->registerConfig();
