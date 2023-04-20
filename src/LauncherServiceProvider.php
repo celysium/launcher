@@ -3,6 +3,7 @@
 namespace Celysium\Launcher;
 
 use Celysium\Launcher\Middleware\Authenticate;
+use Celysium\Seeder\Commands\GenerateSecretCommand;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
@@ -19,11 +20,14 @@ class LauncherServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerConfig();
+        $this->registerMiddlewares();
+        $this->registerCommands();
     }
 
     public function loadRoutes()
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 
     public function publishConfig()
@@ -48,5 +52,13 @@ class LauncherServiceProvider extends ServiceProvider
     {
         $router = $this->app->make(Router::class);
         $router->pushMiddlewareToGroup('api', Authenticate::class);
-        $router->aliasMiddleware('auth:launcher', Authenticate::class); }
+        $router->aliasMiddleware('auth:launcher', Authenticate::class);
+    }
+
+    public function registerCommands()
+    {
+        $this->commands([
+            GenerateSecretCommand::class
+        ]);
+    }
 }
